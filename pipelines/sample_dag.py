@@ -22,8 +22,6 @@ def sample_etl():
     def load():
         pass
 
-    extract()
-    transform()
-    load()
+    extract() >> transform() >> load()
 
 sample_dag = sample_etl()
