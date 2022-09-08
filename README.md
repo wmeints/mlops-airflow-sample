@@ -3,7 +3,20 @@
 This repository contains a fully deployable environment for doing MLOps with 
 Apache Airflow, MLFlow, and KServe.
 
-## Getting started
+## System requirements
+
+We assume that you have the following:
+
+- Access to a Kubernetes 1.22+ cluster 
+- Python 3.9 or higher installed on your machine
+- Kubectl must be installed on your machine
+- Helm 3 or higher installed on your machine
+
+## Deploying the sample
+
+For the sample to work, you'll need to configure a set of things on top
+of Kubernetes. Please follow the instructions in the following sections to
+set things up.
 
 ### Deploying airflow
 
@@ -56,3 +69,32 @@ Airflow:
 
 It will take a few minutes to deploy the airflow components.
 
+## Working with the sample
+
+### Making changes to pipelines
+
+When you've deployed all the components to your Kubernetes environment. You can
+start building a pipeline. 
+
+We've included a sample in the folder `pipelines`. This folder is
+automatically synced from the linked GIT repository.
+
+Every time you push a change to your linked GIT repository, the changes are
+picked up by the Airflow instance.
+
+### Starting pipelines
+
+We've used a manual schedule for each pipeline in the sample. You'll need to
+login to the airflow instance to start the pipelines. 
+
+First, you'll need to start a port-forward to the Airflow instance. Use the 
+following command to start the port-forward:
+
+```shell
+kubectl port-forward -n airflow svc/airflow-webserver 8080:8080
+``` 
+
+After starting the port-forward, navigate to `http://localhost:8080` and log in
+using the username `admin` and the password you configured during deployment.
+
+You can now start the pipelines from the user interface.
