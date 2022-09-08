@@ -1,0 +1,1 @@
+helm upgrade airflow apache-airflow/airflow --namespace airflow -f deploy/airflow/values-override.yml -f deploy/airflow/values-secrets.yml

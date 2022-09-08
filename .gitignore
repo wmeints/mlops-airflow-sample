@@ -1,0 +1,2 @@
+# Don't want to store secrets used to connect to repositories.
+values-secrets.yml
