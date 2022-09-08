@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mlflow-config-map
+data:
+  databaseUser: postgres
+  databaseName: mlflow
+  databaseUrl: mlflow-database-server.airflow.svc.cluster.local

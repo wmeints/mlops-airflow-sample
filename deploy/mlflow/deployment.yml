@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-tracking-server
+spec:
+  selector:
+    matchLabels:
+      app: mlflow-tracking-server
+  template:
+    metadata:
+      labels:
+        app: mlflow-tracking-server
+    spec:
+      containers:
+      - name: mlflow-tracking-server
+        image: willemmeints/mlflow:1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_USER
+            valueFrom: 
+              configMapKeyRef:
+                key: databaseUser
+                name: mlflow-config-map
+          - name: DB_SERVER
+            valueFrom:
+              configMapKeyRef:
+                key: databaseUrl
+                name: mlflow-config-map
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                key: databaseName
+                name: mlflow-config-map
+          - name: ARTIFACT_STORE
+            value: /opt/artifacts
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: databasePassword
+                name: mlflow-secrets
+        volumeMounts:
+          - mountPath: /opt/artifacts
+            name: artifact-volume
+      volumes:
+        - name: artifact-volume
+          persistentVolumeClaim:
+            claimName: artifact-pvc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-database-server
+spec:
+  selector:
+    matchLabels:
+      app: mlflow-database-server
+  template:
+    metadata:
+      labels:
+        app: mlflow-database-server
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:14
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                key: databaseName
+                name: mlflow-config-map
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                key: databaseUser
+                name: mlflow-config-map
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: databasePassword 
+                name: mlflow-secrets
+
