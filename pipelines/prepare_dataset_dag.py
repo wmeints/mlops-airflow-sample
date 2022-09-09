@@ -57,7 +57,3 @@ def prepare_dataset():
     select_features()
 
 prepare_dataset_dag = prepare_dataset()
-
-
-if __name__ == "__main__":
-    prepare_dataset_dag.run()
