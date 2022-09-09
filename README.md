@@ -73,8 +73,23 @@ It will take a few minutes to deploy the airflow components.
 ### Deploying MLFlow
 
 In addition to Airflow, we're going to use a tracking solution for ML models. MLFlow is an open-source tool that allows
-you to track experiments and trained models. Use the following command to build the container image, and deploy
-MLFlow:
+you to track experiments and trained models. 
+
+Add a new file `secrets.yml` to the folder `./deploy/mlflow` and add the following content to it:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mlflow-secrets
+type: Opaque
+data:
+  databasePassword: <your-password> 
+```
+
+Replace `<your-password>` with a base64 password of your choice. Save the file when you're done.
+
+Use the following command in your terminal to deploy MLFlow:
 
 ```shell
 ./deploy-mlflow.ps1
