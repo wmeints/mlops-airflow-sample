@@ -1,3 +1,7 @@
 # Don't want to store secrets used to connect to repositories.
 values-secrets.yml
 secrets.yml
+
+# We don't want any python compiled stuff
+
+__pycache__/

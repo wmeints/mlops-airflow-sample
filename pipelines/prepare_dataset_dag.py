@@ -1,6 +1,7 @@
 import pendulum
 from airflow.decorators import dag, task
 from tasks.select_features import select_features
+from tasks.fix_missing_values import fix_missing_values
 
 
 @dag(
@@ -10,6 +11,6 @@ from tasks.select_features import select_features
     tags=['wachttijden']
 )
 def prepare_dataset():
-    select_features()
+    fix_missing_values(select_features())
     
 prepare_dataset_dag = prepare_dataset()

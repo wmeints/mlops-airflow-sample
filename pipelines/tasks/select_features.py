@@ -43,3 +43,8 @@ def select_features():
 
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('intermediate', remote_output_path, output_file, overwrite=True)
+
+    return {
+        'container': 'intermediate',
+        'filename': remote_output_path
+    }
