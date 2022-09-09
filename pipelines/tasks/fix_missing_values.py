@@ -26,6 +26,8 @@ def fix_missing_values(input_data):
     df = df.dropna(subset=['WACHTTIJD'])    
     df['TYPE_ZORGINSTELLING'] = df['TYPE_ZORGINSTELLING'].fillna('Kliniek')
 
+    df.to_csv(local_output_path, index=False)
+
     remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(now.year, now.month, now.day)
     local_output_path = Path('/tmp/wachttijden_processed.csv')
 
