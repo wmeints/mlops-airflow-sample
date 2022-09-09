@@ -89,7 +89,7 @@ data:
   databasePassword: <your-password> 
 ```
 
-Replace `<your-password>` with a base64 password of your choice. Save the file when you're done.
+Replace `<your-password>` with a base64-encoded password of your choice. Save the file when you're done.
 
 Use the following command in your terminal to deploy MLFlow:
 
