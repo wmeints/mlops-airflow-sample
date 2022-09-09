@@ -148,7 +148,7 @@ rename the file to `wachttijden.csv`.
 When you've deployed all the components to your Kubernetes environment. You can
 start building a pipeline. 
 
-We've included a sample in the folder `pipelines`. This folder is
+We've included a sample in the folder `src/pipelines`. This folder is
 automatically synced from the linked GIT repository.
 
 Every time you push a change to your linked GIT repository, the changes are
