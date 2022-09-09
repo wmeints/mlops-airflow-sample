@@ -1,6 +1,5 @@
 
 import pendulum
-from pathlib import Path
 from airflow.decorators import dag, task
 
 
@@ -23,19 +22,20 @@ def prepare_dataset():
     )
     def select_features():
         import pandas as pd
+        from pathlib import Path
         from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
         import pendulum
         
-        now = pendulum.now(tc='UTC')
+        now = pendulum.now(tz='UTC')
 
-        remote_input_path = Path('/raw/wachttijden/2022/09/09/wachttijden.csv')
+        remote_input_path = 'wachttijden/2022/09/09/wachttijden.csv'
         local_input_path = Path('/tmp/wachttijden.csv')
 
-        remote_output_path = f'/intermediate/wachttijden/{now.year}/{now.month}/{now.day}/wachttijden.csv'
+        remote_output_path = f'wachttijden/{now.year}/{now.month}/{now.day}/wachttijden.csv'
         local_output_path = Path('/tmp/wachttijden_processed.csv')
 
         feature_names = [
-            'WACHTTIJD'
+            'WACHTTIJD',
             'TYPE_WACHTTIJD',
             'SPECIALISME',
             'ROAZ_REGIO',
