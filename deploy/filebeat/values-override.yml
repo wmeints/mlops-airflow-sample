@@ -23,4 +23,4 @@ daemonset:
         - add_cloud_metadata:
 
       output.logstash:
-        hosts: ["logstash.logging.svc.cluster.local:5044"]
+        hosts: ["logstash-logstash-headless.logging.svc.cluster.local:5044"]
