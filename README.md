@@ -64,6 +64,7 @@ Once you've configured the values, run the following command to install
 Airflow:
 
 ```shell
+kubectl create namespace airflow
 ./deploy-airflow.ps1
 ```
 
