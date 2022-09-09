@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-database-server
+spec:
+  selector:
+    matchLabels:
+      app: mlflow-database-server
+  template:
+    metadata:
+      labels:
+        app: mlflow-database-server
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:14
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                key: databaseName
+                name: mlflow-config-map
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                key: databaseUser
+                name: mlflow-config-map
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: databasePassword 
+                name: mlflow-secrets
+

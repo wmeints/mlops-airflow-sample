@@ -70,6 +70,16 @@ kubectl create namespace airflow
 
 It will take a few minutes to deploy the airflow components.
 
+### Deploying MLFlow
+
+In addition to Airflow, we're going to use a tracking solution for ML models. MLFlow is an open-source tool that allows
+you to track experiments and trained models. Use the following command to build the container image, and deploy
+MLFlow:
+
+```shell
+./deploy-mlflow.ps1
+```
+
 ## Working with the sample
 
 ### Making changes to pipelines
