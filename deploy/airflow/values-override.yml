@@ -13,17 +13,9 @@ enablePodLaunching: true
 
 config:
   elasticsearch:
-    host: "http://elasticsearch-master.logging.svc.cluster.local:9200"
-    write_stdout: true
-    json_fields: asctime, filename, lineno, levelname, message    
-    end_of_log_mark: end_of_log
+    host: "elasticsearch-master.logging.svc.cluster.local:9200"
+    write_stdout: "True"
     log_id_template: "{dag_id}_{task_id}_{execution_date}_{try_number}"
-  elasticsearch_configs:
-    use_ssl: "False"
-    verify_certs: "False"
-    max_retries: 3
-    timeout: 30
-    retry_timeout: "True"
 
 elasticsearch:
   connection: 
