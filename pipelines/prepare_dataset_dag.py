@@ -2,7 +2,7 @@
 import pendulum
 from pathlib import Path
 from airflow.decorators import dag, task
-from airflow.providers.microsoft.azure.hooks.data_lake import AzureDataLakeHook
+from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
 
 
 @dag(
@@ -37,15 +37,17 @@ def prepare_dataset():
             'TYPE_ZORGINSTELLING'
         ]
 
-        datalake_hook = AzureDataLakeHook()
-        datalake_hook.download_file(local_input_path, remote_input_path)
+        storage_hook = WasbHook('wasb_datalake', public_read=False)
+
+        storage_hook.get_file(local_input_path, 'raw', remote_input_path)
 
         df = pd.read_csv(local_input_path)
         df = df[feature_names]
 
         df.to_csv(local_output_path)
 
-        datalake_hook.upload_file(local_output_path, remote_output_path)
+        with open(local_output_path, 'rb') as output_file:
+            storage_hook.upload('intermediate', remote_output_path, output_file)
 
     select_features()
 
