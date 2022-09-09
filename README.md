@@ -1,5 +1,7 @@
 # MLOps environment with Airflow, MLFlow, and KServe
 
+![Airflow dashboard in action](images/airflow-dashboard.png)
+
 This repository contains a fully deployable environment for doing MLOps with 
 Apache Airflow, MLFlow, and KServe.
 
