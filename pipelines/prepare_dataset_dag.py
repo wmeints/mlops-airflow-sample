@@ -2,7 +2,6 @@
 import pendulum
 from pathlib import Path
 from airflow.decorators import dag, task
-from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
 
 
 @dag(
@@ -16,10 +15,14 @@ def prepare_dataset():
     @task.virtualenv(
         use_dill=True,
         system_site_packages=True,
-        requirements=['pandas==1.4.3']
+        requirements=[
+            'pandas==1.4.3',
+            'apache-airflow-providers-microsoft-azure==4.2.0'
+        ]
     )
     def select_features():
         import pandas as pd
+        from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
 
         now = pendulum.now(tc='UTC')
 
