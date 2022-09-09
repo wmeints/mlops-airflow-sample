@@ -140,7 +140,8 @@ In the configured storage account, you'll need the following containers:
 * `preprocessed` - This is where the preprocessed data is stored.
 
 You can get the sample dataset from [this website][DATASET_URL]. Upload it to
-the `raw` container in the folder `wachttijden/2022/09/09/wachttijden.csv`.
+the `raw` container in the folder `wachttijden/2022/09/09/`. Make sure you
+rename the file to `wachttijden.csv`.
 
 ### Making changes to pipelines
 
