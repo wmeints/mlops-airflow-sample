@@ -5,7 +5,7 @@ from airflow.decorators import dag, task
 
 
 @dag(
-    schedule_interval=None,
+    schedule_interval='@daily',
     start_date=pendulum.datetime(2021,1,1, tz='UTC'),
     catchup=False,
     tags=['wachttijden']
@@ -17,13 +17,15 @@ def prepare_dataset():
         system_site_packages=True,
         requirements=[
             'pandas==1.4.3',
-            'apache-airflow-providers-microsoft-azure==4.2.0'
+            'apache-airflow-providers-microsoft-azure==4.2.0',
+            'pendulum==2.1.2'
         ]
     )
     def select_features():
         import pandas as pd
         from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
-
+        import pendulum
+        
         now = pendulum.now(tc='UTC')
 
         remote_input_path = Path('/raw/wachttijden/2022/09/09/wachttijden.csv')
@@ -55,3 +57,7 @@ def prepare_dataset():
     select_features()
 
 prepare_dataset_dag = prepare_dataset()
+
+
+if __name__ == "__main__":
+    prepare_dataset_dag.run()
