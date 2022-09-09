@@ -133,6 +133,15 @@ of the sample, we recommend setting the Blob Storage Connection String instead.
 Make sure to name the connection `wasb_datalake`. This is preconfigured in the
 tasks in the sample pipeline.
 
+In the configured storage account, you'll need the following containers:
+
+* `raw` - This is where you need to store the raw dataset.
+* `intermediate` - This is where intermediate resuls are stored.
+* `preprocessed` - This is where the preprocessed data is stored.
+
+You can get the sample dataset from [this website][DATASET_URL]. Upload it to
+the `raw` container in the folder `wachttijden/2022/09/09/wachttijden.csv`.
+
 ### Making changes to pipelines
 
 When you've deployed all the components to your Kubernetes environment. You can
@@ -216,3 +225,5 @@ repository right now.
 Whenever you commit and push files to GIT, the repository is synced with the
 Airflow environment. Please note, it will take up to a minute for the
 environment to detect the new and modified DAGs.
+
+[DATASET_URL]: https://puc.overheid.nl/PUC/Handlers/DownloadDocument.ashx?identifier=PUC_656543_22&versienummer=1
