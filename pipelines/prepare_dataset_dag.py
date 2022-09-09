@@ -1,4 +1,3 @@
-
 import pendulum
 from airflow.decorators import dag, task
 
@@ -15,7 +14,7 @@ def prepare_dataset():
         use_dill=True,
         system_site_packages=True,
         requirements=[
-            'pandas==1.4.3',
+            'pandas==1.3.5',
             'apache-airflow-providers-microsoft-azure==4.2.0',
             'pendulum==2.1.2'
         ]
@@ -52,7 +51,7 @@ def prepare_dataset():
         df.to_csv(local_output_path)
 
         with open(local_output_path, 'rb') as output_file:
-            storage_hook.upload('intermediate', remote_output_path, output_file)
+            storage_hook.upload('intermediate', remote_output_path, output_file, overwrite=True)
 
     select_features()
 
