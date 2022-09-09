@@ -118,6 +118,21 @@ Airflow UI.
 
 This section covers how to work with the sample in your own environment.
 
+### Configuring the connection to a datalake
+
+We're using Azure blob storage with hierarchical namespaces as a data lake in
+the sample. To access the data lake, you'll need to set up a connection in the
+UI.
+
+![Airflow UI with connection settings](images/datalake-connection.png)
+
+If you're running on Azure, and you have managed identity set up for your 
+Kubernetes cluster, you can choose to set an account name. For the purposes
+of the sample, we recommend setting the Blob Storage Connection String instead.
+
+Make sure to name the connection `wasb_datalake`. This is preconfigured in the
+tasks in the sample pipeline.
+
 ### Making changes to pipelines
 
 When you've deployed all the components to your Kubernetes environment. You can
