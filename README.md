@@ -97,6 +97,18 @@ Use the following command in your terminal to deploy MLFlow:
 ./deploy-mlflow.ps1
 ```
 
+### Deploying logging components
+
+We've included logging through the ELK stack in the sample. You can deploy the components needed for logging using the
+following command:
+
+```shell
+./deploy-elasticsearch.ps1
+```
+
+It will take a few minutes for the logging components to come online. Once they're ready and you run a DAG, the logs
+will show up in elasticsearch. You can access them as normal in the Apache Airflow UI.
+
 ## Working with the sample
 
 ### Making changes to pipelines
