@@ -26,7 +26,7 @@ def prepare_dataset():
         remote_input_path = Path('/raw/wachttijden/2022/09/09/wachttijden.csv')
         local_input_path = Path('/tmp/wachttijden.csv')
 
-        remote_output_path = Path(f'/intermediate/wachttijden/{now.year}/{now.month}/{now.day}/wachttijden.csv')
+        remote_output_path = f'/intermediate/wachttijden/{now.year}/{now.month}/{now.day}/wachttijden.csv'
         local_output_path = Path('/tmp/wachttijden_processed.csv')
 
         feature_names = [
