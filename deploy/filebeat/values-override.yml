@@ -5,22 +5,27 @@ daemonset:
         - type: container
           paths:
             - /var/log/containers/*.log
-          processors:
-            - decode_json_fields:
-                fields: ["message"]
-                target: ""
-                overwrite_keys: true
-            - add_kubernetes_metadata:
-                host: ${NODE_NAME}
-                matchers:
-                - logs_path:
-                    logs_path: "/var/log/containers/"
-            - rename:
-                fields:
-                  - from: "log.offset"
-                    to: "offset"
       processors:
-        - add_cloud_metadata:
-
+        - drop_fields: # First get rid of the "built in" host field
+              fields: 
+                - host
+        - decode_json_fields: # Expand our JSON log to the root
+            fields: 
+              - message # This holds a line of JSON as string
+            process_array: true
+            target: "" # Store at the root
+            overwrite_keys: true # message attribute will be overwritten with the message from airflow
+        - rename: # The next proc will overwrite the host field which is needed by the AF webserver ...
+            fields:
+              - from: "host" # ... so lets just store it somewhere else
+                to: "airflow_log_host" # With some AF executors there is no host-field and this will just be a NoOp
+        - add_host_metadata: # This writes to the "host" field 
+        - rename: 
+            fail_on_error: false # This is needed to move host to host_meta even if airflow_log_host doesn't exist
+            fields:
+              - from: "host" # Still want this info, but I can't use the "host" field for it
+                to: "host_meta"  
+              - from: "airflow_log_host" # Move back the original value to the host field
+                to: "host"
       output.logstash:
         hosts: ["logstash-logstash-headless.logging.svc.cluster.local:5044"]
