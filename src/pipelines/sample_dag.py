@@ -1,4 +1,3 @@
-from re import M
 from airflow.decorators import dag, task
 import pendulum
 
