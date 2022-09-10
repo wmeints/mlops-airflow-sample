@@ -10,9 +10,11 @@ Apache Airflow, MLFlow, and KServe.
 We assume that you have the following:
 
 - Access to a Kubernetes 1.22+ cluster 
-- Python 3.9 or higher installed on your machine
+- The latest release of Anaconda on your machine
 - Kubectl must be installed on your machine
 - Helm 3 or higher installed on your machine
+
+Please note, this sample only works on WSL2 or Linux!
 
 ## Deploying the sample
 
@@ -117,6 +119,28 @@ Airflow UI.
 ## Working with the sample
 
 This section covers how to work with the sample in your own environment.
+
+### Configuring your machine
+
+As with many Python projects, you'll need a virtual environment of some sort.
+We recommend that you use anaconda since it features a lot of the packages
+you'll need for data science.
+
+You can create a new Anaconda environment using the following command:
+
+```shell
+conda create -n mlopsdemo python=3.7
+```
+
+This command creates an environment that matches the Python version used by 
+Airflow. 
+
+After creating the Anaconda environment, run the following command to install
+the project dependencies:
+
+```shell
+pip install -r requirements.txt
+```
 
 ### Configuring the connection to a datalake
 
