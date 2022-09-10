@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name":"prepare_dataset",
+            "type":"python",
+            "request":"launch",
+            "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
+            "console": "integratedTerminal",
+            "args":[
+                "dags",
+                "test",
+                "prepare_dataset",
+                "2022-09-10"
+            ]
+        }
+    ]
+}

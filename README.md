@@ -183,6 +183,12 @@ AIRFLOW__CORE__DAGS_FOLDER=./src/pipelines python -m pytest -s ./src/
 This command configures airflow so it loads the folder `src/pipelines` and then
 starts pytest from the `src/` folder. 
 
+### Debugging pipelines
+
+This project includes a launch configuration for VSCode. You can find it in
+`.vscode/launch.json`. Please make sure you set the correct path for the
+`program` argument so it points to the location of the airflow executable.
+
 ## Documentation
 
 This section describes various design choices in the sample. You can use this if
