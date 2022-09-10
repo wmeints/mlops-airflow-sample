@@ -272,4 +272,8 @@ Kubernetes cluster:
 * logstash - Enriches data before pushing it to elasticsearch.
 * filebeat - Scrapes log data from the airflow components.
 
+#### Machine learning components
+
+* mlflow - Tracking of model training runs and stores registered models
+
 [DATASET_URL]: https://puc.overheid.nl/PUC/Handlers/DownloadDocument.ashx?identifier=PUC_656543_22&versienummer=1
