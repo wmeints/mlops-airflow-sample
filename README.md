@@ -171,6 +171,18 @@ using the username `admin` and the password you configured during deployment.
 
 You can now start the pipelines from the user interface.
 
+### Running tests
+
+In the `src/tests` folder you'll find a couple of unit-tests for various parts
+of the pipeline steps. You can run the tests using the following command:
+
+```shell
+AIRFLOW__CORE__DAGS_FOLDER=./src/pipelines python -m pytest -s ./src/
+```
+
+This command configures airflow so it loads the folder `src/pipelines` and then
+starts pytest from the `src/` folder. 
+
 ## Documentation
 
 ### Deployment architecture
