@@ -9,10 +9,11 @@ Apache Airflow, MLFlow, and KServe.
 
 We assume that you have the following:
 
-- Access to a Kubernetes 1.22+ cluster 
+- Access to a Kubernetes 1.22+ cluster with at least 4 CPU cores and 20Gb
 - The latest release of Anaconda on your machine
 - Kubectl must be installed on your machine
 - Helm 3 or higher installed on your machine
+- Istio 1.11.6
 
 Please note, this sample only works on WSL2 or Linux!
 
@@ -21,6 +22,55 @@ Please note, this sample only works on WSL2 or Linux!
 For the sample to work, you'll need to configure a set of things on top
 of Kubernetes. Please follow the instructions in the following sections to
 set things up.
+
+We recommend that you use a cluster that's capable of hosting loadbalancer
+services. Some commands assume that you'll use external IP-addresses and
+this can't be done with a loadbalancer setup in Kubernetes.
+
+### Installing Istio
+
+The sample uses Istio to route traffic from outside the cluster and to support
+canary releasing models. Please use the following command to install Istio:
+
+```
+istioctl install -y
+```
+
+### Deploying KServe
+
+The model serving environment is implemented using KServe. The KServe tool
+allows use to host models with a serverless philosophy. You can install KServe
+using the following script: 
+
+```shell
+./install-kserve.sh
+```
+
+Please note, you'll need to set up a host entry in your host file for the 
+KNative installation to work. You can get the external IP-address for your
+cluster using the following command:
+
+```shell
+kubectl --namespace istio-system get service istio-ingressgateway
+```
+
+Add the following entry to your host file:
+
+```text
+<ip-address>    knative.mlopsdemo.local
+```
+
+Once you've configured the environment, you can access it on the URL you
+just configured in the host file.
+
+--------------------------------------------------------------------------------
+
+Please note, you may get errors regarding cert manager not being able to service
+a certificate request. This happens when cert manager isn't ready yet. You can
+re-run the `./install-kserve.sh` script after a few minutes and it should work
+as intended.
+
+--------------------------------------------------------------------------------
 
 ### Deploying airflow
 
