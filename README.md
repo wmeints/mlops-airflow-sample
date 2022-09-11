@@ -15,17 +15,17 @@ We assume that you have the following:
 - Helm 3 or higher installed on your machine
 - Istio 1.11.6
 
-Please note, this sample only works on WSL2 or Linux!
+Please note, this sample only works on WSL2 or Linux! This is due to a bug in
+Airflow which prevents it from running locally with Sqlite.
+
+We've tested the setup with Docker Desktop and WSL2. Other forms of Kubernetes
+hosting may work, but remain untested for the time being.
 
 ## Deploying the sample
 
-For the sample to work, you'll need to configure a set of things on top
-of Kubernetes. Please follow the instructions in the following sections to
+For the sample to work, you'll need to configure a set of services in
+Kubernetes. Please follow the instructions in the following sections to
 set things up.
-
-We recommend that you use a cluster that's capable of hosting loadbalancer
-services. Some commands assume that you'll use external IP-addresses and
-this can't be done with a loadbalancer setup in Kubernetes.
 
 ### Installing Istio
 
@@ -74,9 +74,8 @@ as intended.
 
 ### Deploying airflow
 
-We're using Helm to deploy the airflow components to the Kubernetes cluster.
-You'll need to perform a few preparation steps before deploying the 
-components to the Kubernetes cluster.
+This section covers how to set up Apache Airflow on Kubernetes. Please follow
+the instructions below.
 
 Create a new file `deploy/airflow/values-secrets.yml` and add the following
 content to it:
