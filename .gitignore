@@ -1,7 +1,14 @@
-# Don't want to store secrets used to connect to repositories.
+# Workspace secrets
 values-secrets.yml
 secrets.yml
+connections/
 
-# We don't want any python compiled stuff
-
+# Python
 __pycache__/
+logs/
+
+# Airflow
+airflow.db
+
+# MlFlow
+mlruns/

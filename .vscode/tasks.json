@@ -1,0 +1,54 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "clean-airflow-database",
+            "command": "rm -rf airflow.db",
+            "type":"shell"
+        },
+        {
+            "label": "update-airflow-database",
+            "command": "airflow db init",
+            "dependsOn": "clean-airflow-database",
+            "type":"shell",
+            "options": {
+                "env": {
+                    "AIRFLOW_HOME": "${workspaceFolder}"
+                }
+            }
+        },
+        {
+            "label": "create-airflow-user",
+            "command": "airflow users create --username admin --firstname admin --lastname admin --password admin --role Admin --email admin@example.org",
+            "dependsOn": "update-airflow-database",
+            "type": "shell",
+            "options": {
+                "env": {
+                    "AIRFLOW_HOME": "${workspaceFolder}"
+                }
+            }
+        },
+        {
+            "label": "import-airflow-variables",
+            "command": "if [ -f \"${workspaceFolder}/variables/dev/all.json\" ]; then airflow variables import ${workspaceFolder}/variables/dev/all.json; fi",
+            "type": "shell",
+            "dependsOn": "create-airflow-user",
+            "options":{
+                "env": {
+                    "AIRFLOW_HOME": "${workspaceFolder}"
+                }
+            }
+        },
+        {
+            "label": "import-airflow-connections",
+            "command": "if [ -f \"${workspaceFolder}/connections/dev/all.json\" ]; then airflow connections import ${workspaceFolder}/connections/dev/all.json; fi",
+            "type": "shell",
+            "dependsOn": "import-airflow-variables",
+            "options":{
+                "env": {
+                    "AIRFLOW_HOME": "${workspaceFolder}"
+                }
+            }
+        }
+    ]
+}
