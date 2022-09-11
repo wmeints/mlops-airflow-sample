@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mlflow-tracking-server
-        image: willemmeints/mlflow:1
+        image: willemmeints/mlflow:4
         resources:
           limits:
             memory: "1G"
@@ -42,6 +42,21 @@ spec:
             valueFrom:
               secretKeyRef:
                 key: databasePassword
+                name: mlflow-secrets
+          - name: AZURE_STORAGE_ACCOUNT_NAME
+            valueFrom:
+              secretKeyRef:
+                key: storageAccountName
+                name: mlflow-secrets
+          - name: AZURE_STORAGE_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                key: storageAccountConnectionString
+                name: mlflow-secrets
+          - name: AZURE_STORAGE_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: storageAccountKey
                 name: mlflow-secrets
         volumeMounts:
           - mountPath: /opt/artifacts

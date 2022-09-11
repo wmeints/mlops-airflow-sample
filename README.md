@@ -10,6 +10,7 @@ Apache Airflow, MLFlow, and KServe.
 We assume that you have the following:
 
 - Access to a Kubernetes 1.22+ cluster with at least 4 CPU cores and 20Gb
+- An Azure Storage account to use as feature storage and artifact storage
 - The latest release of Anaconda on your machine
 - Kubectl must be installed on your machine
 - Helm 3 or higher installed on your machine
@@ -140,10 +141,19 @@ metadata:
 type: Opaque
 data:
   databasePassword: <your-password> 
+  storageAccountName:
+  storageAccountKey:
+  storageAccountConnectionString: 
 ```
 
-Replace `<your-password>` with a base64-encoded password of your choice. Save
-the file when you're done.
+Provide the following properties in base64-encoded form:
+
+| Property                        | Value                                          |
+|---------------------------------|------------------------------------------------|
+| databasePassword                | Database for the postgres database             |
+| storageAccountName              | Name of the Azure storage account to use       |
+| storageAccountKey               | Key of the Azure storage account to use        |
+| storageAccountConnectionString  | Connection string to the Azure Storage Account |
 
 Use the following command in your terminal to deploy MLFlow:
 
