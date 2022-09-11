@@ -5,7 +5,8 @@ from airflow.decorators import task
     system_site_packages=True,
     requirements=[
         'pandas==1.3.5',
-        'scikit-learn==1.0.2'
+        'scikit-learn==1.0.2',
+        'mlflow==1.28.0'
     ]
 )
 def train(input_data):
