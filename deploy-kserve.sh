@@ -11,6 +11,8 @@ kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-
 
 kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-v1.7.0/net-istio.yaml
 
+kubectl label namespace knative-serving istio-injection=enabled
+
 kubectl patch configmap/config-domain \
     --namespace knative-serving \
     --type merge \
