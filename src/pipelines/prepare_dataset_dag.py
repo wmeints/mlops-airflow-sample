@@ -39,8 +39,7 @@ with DAG(
         ],
         system_site_packages=True,
         op_kwargs={ 
-            'input_path': '{{xcom.pull(task_ids="select_features", key="output_path")}}', 
-            'input_container': '{{xcom.pull(task_ids="select_features", key="container")}}' 
+            'input_data': '{{xcom.pull(task_ids="select_features")}}', 
         }
     )
 

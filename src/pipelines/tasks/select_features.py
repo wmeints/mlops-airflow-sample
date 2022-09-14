@@ -3,11 +3,12 @@ from airflow.decorators import task
 from airflow.operators.python import PythonVirtualenvOperator
 
 
-def select_features(ti):
+def select_features():
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
     import pendulum
+    import json
 
     execution_date = pendulum.now(tz='UTC')
 
@@ -37,8 +38,8 @@ def select_features(ti):
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('intermediate', remote_output_path, output_file, overwrite=True)
 
-    ti.xcom_push(key='output_path', value=remote_output_path)
-    ti.xcom_push(key='container', value='intermediate')
-
-
+    return json.dumps({
+        'container': 'intermediate',
+        'filename': remote_output_path
+    })
 
