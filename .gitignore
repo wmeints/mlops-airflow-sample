@@ -9,6 +9,8 @@ logs/
 
 # Airflow
 airflow.db
+airflow.cfg
+webserver_config.py
 
 # MlFlow
 mlruns/
