@@ -3,7 +3,6 @@ from airflow import DAG
 from airflow.operators.python import PythonVirtualenvOperator
 from tasks.select_features import select_features
 from tasks.fix_missing_values import fix_missing_values
-from tasks.set_execution_date import set_execution_date
 
 
 default_args = {
