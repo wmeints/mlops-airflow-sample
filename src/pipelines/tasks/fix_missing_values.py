@@ -30,8 +30,8 @@ def fix_missing_values(input_data, **kwargs):
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('preprocessed', remote_output_path, output_file, overwrite=True)
 
-    return {
+    return json.dumps({
         'container': 'preprocessed',
         'filename': remote_output_path
-    }   
+    })
 
