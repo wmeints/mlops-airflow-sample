@@ -7,3 +7,4 @@ bandit==1.7.4
 autopep8==1.7.0
 scikit-learn==1.0.2
 mlflow==1.28.0
+virtualenv==20.16.5
