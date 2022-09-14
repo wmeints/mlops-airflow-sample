@@ -11,6 +11,7 @@ default_args = {
     'retries': 3
 }
 
+
 with DAG(
     dag_id='prepare_dataset',
     schedule_interval='@daily',
@@ -37,7 +38,10 @@ with DAG(
             'pendulum==2.1.2'
         ],
         system_site_packages=True,
-        op_kwargs={ 'input_data': '{{xcom.pull(task_ids="select_features")}}'}
+        op_kwargs={ 
+            'input_path': '{{xcom.pull(task_ids="select_features", key="output_path")}}', 
+            'input_container': '{{xcom.pull(task_ids="select_features", key="container")}}' 
+        }
     )
 
     select_features_task >> fix_missing_values_task

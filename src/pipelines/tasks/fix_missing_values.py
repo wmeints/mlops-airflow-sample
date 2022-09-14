@@ -1,7 +1,7 @@
 from airflow.operators.python import PythonVirtualenvOperator
 
 
-def fix_missing_values(input_data, **kwargs):
+def fix_missing_values(input_container, input_path, **kwargs):
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
@@ -16,7 +16,7 @@ def fix_missing_values(input_data, **kwargs):
     local_output_path = Path('/tmp/wachttijden_processed.csv')
 
     storage_hook = WasbHook(datalake_connection, public_read=False)
-    storage_hook.get_file(local_input_path, input_data['container'], input_data['filename'])
+    storage_hook.get_file(local_input_path, input_container, input_path)
 
     df = pd.read_csv(local_input_path)
 

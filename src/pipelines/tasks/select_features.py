@@ -1,8 +1,9 @@
+from re import T
 from airflow.decorators import task
 from airflow.operators.python import PythonVirtualenvOperator
 
 
-def select_features():
+def select_features(ti):
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
@@ -36,9 +37,8 @@ def select_features():
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('intermediate', remote_output_path, output_file, overwrite=True)
 
-    return {
-        'container': 'intermediate',
-        'filename': remote_output_path
-    }   
+    ti.xcom_push(key='output_path', value=remote_output_path)
+    ti.xcom_push(key='container', value='intermediate')
+
 
 
