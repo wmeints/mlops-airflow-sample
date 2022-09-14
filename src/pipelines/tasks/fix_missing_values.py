@@ -1,27 +1,21 @@
-from airflow.decorators import task
+from airflow.operators.python import PythonVirtualenvOperator
 
-@task.virtualenv(
-    use_dill=True,
-    system_site_packages=True,
-    requirements=[
-        'pandas==1.3.5',
-        'apache-airflow-providers-microsoft-azure==4.2.0',
-        'pendulum==2.1.2'
-    ]
-)
-def fix_missing_values(input_data):
+
+def fix_missing_values(input_data, **kwargs):
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
+    from airflow.models import Variable
     import pendulum
 
-    now = pendulum.now(tz='UTC')
+    datalake_connection = kwargs['datalake_connection']
+    execution_date = Variable.get('execution_date')
+
     local_input_path = Path('/tmp/wachttijden.csv')
-    remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(now.year, now.month, now.day)
+    remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(execution_date.year, execution_date.month, execution_date.day)
     local_output_path = Path('/tmp/wachttijden_processed.csv')
 
-    storage_hook = WasbHook('wasb_datalake', public_read=False)
-
+    storage_hook = WasbHook(datalake_connection, public_read=False)
     storage_hook.get_file(local_input_path, input_data['container'], input_data['filename'])
 
     df = pd.read_csv(local_input_path)
@@ -37,4 +31,5 @@ def fix_missing_values(input_data):
     return {
         'container': 'preprocessed',
         'filename': remote_output_path
-    }
+    }   
+

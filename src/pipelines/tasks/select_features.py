@@ -1,27 +1,19 @@
 from airflow.decorators import task
+from airflow.operators.python import PythonVirtualenvOperator
 
 
-@task.virtualenv(
-    use_dill=True,
-    system_site_packages=True,
-    requirements=[
-        'pandas==1.3.5',
-        'apache-airflow-providers-microsoft-azure==4.2.0',
-        'pendulum==2.1.2'
-    ]
-)
 def select_features():
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
     import pendulum
-    
-    now = pendulum.now(tz='UTC')
+
+    execution_date = pendulum.now(tz='UTC')
 
     remote_input_path = 'wachttijden/2022/09/09/wachttijden.csv'
     local_input_path = Path('/tmp/wachttijden.csv')
 
-    remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(now.year, now.month, now.day)
+    remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(execution_date.year, execution_date.month, execution_date.day)
     local_output_path = Path('/tmp/wachttijden_processed.csv')
 
     feature_names = [
@@ -47,4 +39,6 @@ def select_features():
     return {
         'container': 'intermediate',
         'filename': remote_output_path
-    }
+    }   
+
+
