@@ -10,7 +10,7 @@ Apache Airflow, MLFlow, and KServe.
 We assume that you have the following:
 
 - Access to a Kubernetes 1.22+ cluster with at least 4 CPU cores and 20Gb
-- An Azure Storage account to use as feature storage and artifact storage
+- An Azure Storage account with hierarchical namespaces to use as feature storage and artifact storage
 - The latest release of Anaconda on your machine
 - Kubectl must be installed on your machine
 - Helm 3 or higher installed on your machine
@@ -44,7 +44,7 @@ allows use to host models with a serverless philosophy. You can install KServe
 using the following script: 
 
 ```shell
-./install-kserve.sh
+./deploy-kserve.sh
 ```
 
 Please note, you'll need to set up a host entry in your host file for the 
@@ -96,6 +96,13 @@ data:
 
 Make sure you replace the `<your-key>` value with the base64 encoded version
 of an SSH private key that has access to the repo you want to sync with airflow.
+
+You can create a key using the following command from WSL2:
+```shell
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+Make sure to use an e-mailaddress that has access to the repository. The public key 
+should then be added as a deploy key to the repository.
 
 You can encode your key using the following command from WSL2:
 
