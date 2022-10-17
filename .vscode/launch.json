@@ -6,7 +6,7 @@
             "type":"python",
             "request":"launch",
             "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
-            "preLaunchTask": "import-airflow-variables",
+            "preLaunchTask": "import-airflow-connections",
             "console": "integratedTerminal",
             "env": {
                 "AIRFLOW_HOME": "${workspaceFolder}",
