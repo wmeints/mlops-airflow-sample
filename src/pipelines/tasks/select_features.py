@@ -30,10 +30,10 @@ def select_features():
 
     storage_hook.get_file(local_input_path, 'raw', remote_input_path)
 
-    df = pd.read_csv(local_input_path)
+    df = pd.read_csv(local_input_path, sep=';')
     df = df[feature_names]
 
-    df.to_csv(local_output_path)
+    df.to_csv(local_output_path, sep=';')
 
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('intermediate', remote_output_path, output_file, overwrite=True)
