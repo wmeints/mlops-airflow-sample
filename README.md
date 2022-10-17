@@ -201,10 +201,11 @@ conda create -n mlopsdemo python=3.7
 This command creates an environment that matches the Python version used by 
 Airflow. 
 
-After creating the Anaconda environment, run the following command to install
-the project dependencies:
+After creating the Anaconda environment, run the following commands to 
+activate the environment and install the project dependencies:
 
 ```shell
+conda activate mlopsdemo
 pip install -r requirements.txt
 ```
 
@@ -226,7 +227,7 @@ tasks in the sample pipeline.
 In the configured storage account, you'll need the following containers:
 
 * `raw` - This is where you need to store the raw dataset.
-* `intermediate` - This is where intermediate resuls are stored.
+* `intermediate` - This is where intermediate results are stored.
 * `preprocessed` - This is where the preprocessed data is stored.
 
 You can get the sample dataset from [this website][DATASET_URL]. Upload it to
@@ -277,7 +278,10 @@ starts pytest from the `src/` folder.
 
 This project includes a launch configuration for VSCode. You can find it in
 `.vscode/launch.json`. Please make sure you set the correct path for the
-`program` argument so it points to the location of the airflow executable.
+`program` argument so it points to the location of the airflow executable. 
+Also don't forget to initialize a connection when debugging locally. This can 
+be done using the 
+[following guide](https://fizzylogic.nl/2022/09/10/how-to-debug-airflow-dags-in-vscode#:~:text=You%20can%20store%20connections%20in,json%20connections/dev/all.json).
 
 ## Documentation
 
