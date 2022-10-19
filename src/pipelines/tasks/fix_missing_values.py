@@ -1,16 +1,12 @@
-from airflow.operators.python import PythonVirtualenvOperator
-
-
-def fix_missing_values(input_data):
+def fix_missing_values(input_data, execution_date_str):
     import pandas as pd
     from pathlib import Path
     from airflow.providers.microsoft.azure.hooks.wasb import WasbHook
-    from airflow.models import Variable
     import json
+    from datetime import datetime
 
     input_values = json.loads(input_data)
-
-    execution_date = Variable.get('execution_date')
+    execution_date = datetime.fromisoformat(execution_date_str)
 
     local_input_path = Path('/tmp/wachttijden.csv')
     remote_output_path = 'wachttijden/{}/{}/{}/wachttijden.csv'.format(execution_date.year, execution_date.month, execution_date.day)

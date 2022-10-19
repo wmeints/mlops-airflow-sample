@@ -1,8 +1,3 @@
-from re import T
-from airflow.decorators import task
-from airflow.operators.python import PythonVirtualenvOperator
-
-
 def select_features():
     import pandas as pd
     from pathlib import Path
