@@ -91,7 +91,11 @@ defaultUser.password: <your-password>
 data:
   metadataConnection:
     user: postgres
-    pass: <your-password>
+    pass: <your-db-password>
+postgresql:
+  enabled: true
+  postgresqlPassword: <your-db-password>
+  postgresqlUsername: postgres
 ```
 
 Make sure you replace the `<your-key>` value with the base64 encoded version
