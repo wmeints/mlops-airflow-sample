@@ -39,7 +39,8 @@ with DAG(
         ],
         system_site_packages=True,
         op_kwargs={ 
-            'input_data': '{{xcom.pull(task_ids="select_features")}}', 
+            'input_data': '{{ti.xcom_pull(task_ids="select_features")}}', 
+            'execution_date_str': '{{dag_run.logical_date}}'
         }
     )
 
