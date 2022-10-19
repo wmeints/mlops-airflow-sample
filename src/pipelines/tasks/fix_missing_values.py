@@ -15,12 +15,12 @@ def fix_missing_values(input_data, execution_date_str):
     storage_hook = WasbHook('wasb_datalake', public_read=False)
     storage_hook.get_file(local_input_path, input_values['container'], input_values['filename'])
 
-    df = pd.read_csv(local_input_path)
+    df = pd.read_csv(local_input_path, sep=';')
 
     df = df.dropna(subset=['WACHTTIJD'])    
     df['TYPE_ZORGINSTELLING'] = df['TYPE_ZORGINSTELLING'].fillna('Kliniek')
 
-    df.to_csv(local_output_path, index=False)
+    df.to_csv(local_output_path, index=False, sep=';')
 
     with open(local_output_path, 'rb') as output_file:
         storage_hook.upload('preprocessed', remote_output_path, output_file, overwrite=True)
