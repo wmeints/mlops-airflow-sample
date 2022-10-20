@@ -5,7 +5,7 @@
             "name":"prepare_dataset",
             "type":"python",
             "request":"launch",
-            "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
+            "program":"/home/emiel/anaconda3/envs/mlopsdemo/bin/airflow",
             "preLaunchTask": "import-airflow-connections",
             "console": "integratedTerminal",
             "env": {
@@ -25,14 +25,15 @@
             "name":"train_model",
             "type":"python",
             "request":"launch",
-            "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
+            "program":"/home/emiel/anaconda3/envs/mlopsdemo/bin/airflow",
             "console": "integratedTerminal",
             "preLaunchTask": "import-airflow-connections",
             "env": {
                 "AIRFLOW_HOME": "${workspaceFolder}",
                 "AIRFLOW__CORE__LOAD_EXAMPLES": "False",
                 "AIRFLOW__CORE__DAGS_FOLDER": "${workspaceFolder}/src/pipelines",
-                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor"
+                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor",
+                "AZURE_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=mlopsairflowsample;AccountKey=MzU8Cb8AjFr7a1d6U/fmtViRajn/Ig/tgWjd0lKjjUxhF9Eb1QORAf0PB1Nxjdykhwv740dknktQ+AStKzVqCQ==;EndpointSuffix=core.windows.net"
             },
             "args":[
                 "dags",
