@@ -5,7 +5,7 @@
             "name":"prepare_dataset",
             "type":"python",
             "request":"launch",
-            "program":"/home/emiel/anaconda3/envs/mlopsdemo/bin/airflow",
+            "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
             "preLaunchTask": "import-airflow-connections",
             "console": "integratedTerminal",
             "env": {
@@ -25,14 +25,14 @@
             "name":"train_model",
             "type":"python",
             "request":"launch",
-            "program":"/home/emiel/anaconda3/envs/mlopsdemo/bin/airflow",
+            "program":"/home/wme/anaconda3/envs/mlopsdemo/bin/airflow",
             "console": "integratedTerminal",
             "preLaunchTask": "import-airflow-connections",
             "env": {
                 "AIRFLOW_HOME": "${workspaceFolder}",
                 "AIRFLOW__CORE__LOAD_EXAMPLES": "False",
                 "AIRFLOW__CORE__DAGS_FOLDER": "${workspaceFolder}/src/pipelines",
-                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor",
+                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor"
             },
             "args":[
                 "dags",
