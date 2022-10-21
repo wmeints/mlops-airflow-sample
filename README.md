@@ -96,10 +96,17 @@ postgresql:
   enabled: true
   postgresqlPassword: <your-db-password>
   postgresqlUsername: postgres
+env:
+  - name: 'AZURE_STORAGE_CONNECTION_STRING'
+    value: '<your-connection-string>'
+  - name: "AIRFLOW_VAR_MLFLOW_SERVER"
+    value: "http://mlflow-tracking-server.airflow.svc.cluster.local:5000"
 ```
 
 Make sure you replace the `<your-key>` value with the base64 encoded version
 of an SSH private key that has access to the repo you want to sync with airflow.
+Also replace the `<your connection string>` value with a connection string that has 
+access to your Azure Storage account.
 
 You can create a key using the following command from WSL2:
 ```shell
@@ -165,6 +172,9 @@ Provide the following properties in base64-encoded form:
 | storageAccountName              | Name of the Azure storage account to use       |
 | storageAccountKey               | Key of the Azure storage account to use        |
 | storageAccountConnectionString  | Connection string to the Azure Storage Account |
+
+Also don't forget to add a container named `modelartifacts` to your Azure Blob storage account.
+In this container, the artifacts will be stored.
 
 Use the following command in your terminal to deploy MLFlow:
 
