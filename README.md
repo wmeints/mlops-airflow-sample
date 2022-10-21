@@ -295,7 +295,9 @@ This project includes a launch configuration for VSCode. You can find it in
 `program` argument so it points to the location of the airflow executable. 
 Also don't forget to initialize a connection when debugging locally. This can 
 be done using the 
-[following guide](https://fizzylogic.nl/2022/09/10/how-to-debug-airflow-dags-in-vscode#:~:text=You%20can%20store%20connections%20in,json%20connections/dev/all.json).
+[following guide](https://fizzylogic.nl/2022/09/10/how-to-debug-airflow-dags-in-vscode#:~:text=You%20can%20store%20connections%20in,json%20connections/dev/all.json). Last, the environment variable
+`AZURE_STORAGE_CONNECTION_STRING` should be set to a connection string that
+has access to your Azure Blob Storage.
 
 ## Documentation
 
