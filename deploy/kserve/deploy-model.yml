@@ -1,0 +1,11 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "mlflow-wachttijden-tree"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: mlflow
+      protocolVersion: v2
+      storageUri: "<url-to-artifact>"

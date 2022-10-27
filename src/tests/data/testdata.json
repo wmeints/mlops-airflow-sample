@@ -1,0 +1,32 @@
+{
+    "parameters": {
+      "content_type": "pd"
+    },
+    "inputs": [
+        {
+          "name": "TYPE_WACHTTIJD",
+          "shape": [1],
+          "datatype": "FP32",
+          "data": ["Polikliniekbezoek"]
+        },
+        {
+          "name": "SPECIALISME",
+          "shape": [1],
+          "datatype": "FP32",
+          "data": ["Orthopedie (305)"]
+        },
+        {
+          "name": "ROAZ_REGIO",
+          "shape": [1],
+          "datatype": "FP32",
+          "data": ["Noordwest"]
+        },
+        {
+          "name": "TYPE_ZORGINSTELLING",
+          "shape": [1],
+          "datatype": "FP32",
+          "data": ["Kliniek"]
+        }
+    ]
+  }
+  
