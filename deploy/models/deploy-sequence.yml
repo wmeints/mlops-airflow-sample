@@ -1,0 +1,39 @@
+---
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "mlflow-wachttijden-tree"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: mlflow
+      protocolVersion: v2
+      storageUri: "<artifact-uri>"
+---
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "mlflow-wachttijden-tree-v2"
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: mlflow
+      protocolVersion: v2
+      storageUri: "<artifact-uri>"
+---
+apiVersion: serving.kserve.io/v1alpha1
+kind: InferenceGraph
+metadata:
+  name: sequence-model
+spec:
+  nodes:
+    root:
+      routerType: Sequence
+      steps:
+        - serviceName: mlflow-wachttijden-tree
+          name: mlflow-wachttijden-tree
+        - serviceName: mlflow-wachttijden-tree-v2
+          name: mlflow-wachttijden-tree-v2
+          data: $request

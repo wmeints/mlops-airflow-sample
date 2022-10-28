@@ -1,0 +1,1 @@
+kubectl apply -n knative-serving -f deploy/models/deploy-sequence.yml
