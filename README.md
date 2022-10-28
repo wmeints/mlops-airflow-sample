@@ -279,7 +279,7 @@ You can now start the pipelines from the user interface.
 ### Training and deploying a model
 After having completed all previous tasks, a model can be trained by consecutively running the prepare_dataset and the train_model pipelines. Afterwards a trained model should reside in `modelartifacts` container in the linked storage account.
 
-In order to deploy the model using KServe, the URL to the `model/` folder in the storage account should be included in the `deploy/kserve/deploy-model.yml` file. Make sure to either make blobs in the container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, don't forget to include the serviceAccountName in `deploy/kserve/deploy-model.yml`. The model can then be deployed using the following command:
+In order to deploy the model using KServe, the URL to the `model/` folder in the storage account should be included in the `deploy/model/deploy-model.yml` file. Make sure to either make blobs in the container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, don't forget to include the serviceAccountName in `deploy/model/deploy-model.yml`. The model can then be deployed using the following command:
 ```shell
 ./deploy-model.sh
 ```
