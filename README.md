@@ -288,8 +288,16 @@ After the model has been succesfully deployed, the model can be tested with test
 ```shell
 ./perform-prediction.sh
 ```
+### Traffic mirroring
+In order to test a new version of a model, one could want to apply [traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/). In this way, a new model can be tested without impacting the original prediction endpoint. With KServe, this kind of functionality can be implemented using an [InferenceGraph](https://github.com/kserve/kserve/tree/master/docs/samples/graph). A sample in which two versions of a model are deployed in such a way can be executed with the following script:
+```shell
+./deploy-sequence.sh
+```
+Don't forget to first replace the `<artifact_uri>` values in `deploy/model/deploy-sequence.yml` with URIs to model artifacts. After all resources have been deployed, a test with the InferenceGraph can be run using the following script:
 
-
+```shell
+./perform-prediction-sequence.sh
+```
 
 ### Running tests
 
