@@ -276,6 +276,21 @@ using the username `admin` and the password you configured during deployment.
 
 You can now start the pipelines from the user interface.
 
+### Training and deploying a model
+After having completed all previous tasks, a model can be trained by consecutively running the prepare_dataset and the train_model pipelines. Afterwards a trained model should reside in `modelartifacts` container in the linked storage account.
+
+In order to deploy the model using KServe, the URL to the `model/` folder in the storage account should be included in the `deploy/model/deploy-model.yml` file. Make sure to either make blobs in the container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, don't forget to include the serviceAccountName in `deploy/model/deploy-model.yml`. The model can then be deployed using the following command:
+```shell
+./deploy-model.sh
+```
+
+After the model has been succesfully deployed, the model can be tested with testdata that has been included in the project in the `src/tests/data/testdata.json` file. In order to do so, the following command should be run:
+```shell
+./perform-prediction.sh
+```
+
+
+
 ### Running tests
 
 In the `src/tests` folder you'll find a couple of unit-tests for various parts
