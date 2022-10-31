@@ -19,7 +19,7 @@ spec:
             memory: "1G"
             cpu: "500m"
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
         env:
           - name: DB_USER
             valueFrom: 

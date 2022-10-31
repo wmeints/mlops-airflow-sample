@@ -32,7 +32,8 @@
                 "AIRFLOW_HOME": "${workspaceFolder}",
                 "AIRFLOW__CORE__LOAD_EXAMPLES": "False",
                 "AIRFLOW__CORE__DAGS_FOLDER": "${workspaceFolder}/src/pipelines",
-                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor"
+                "AIRFLOW__CORE__EXECUTOR": "SequentialExecutor",
+                "AZURE_STORAGE_CONNECTION_STRING": "<your-connection-string>"
             },
             "args":[
                 "dags",

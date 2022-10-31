@@ -43,7 +43,7 @@ def train(input_data):
         storage_hook = WasbHook('wasb_datalake', public_read=False)
         storage_hook.get_file(local_input_path, input_data['container'], input_data['filename'])
 
-        df = pd.read_csv(local_input_path)
+        df = pd.read_csv(local_input_path, ';')
         df_train, df_test = train_test_split(df, test_size=0.2)
 
         df_train_features = df_train[feature_names]

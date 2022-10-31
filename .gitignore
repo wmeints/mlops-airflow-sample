@@ -14,3 +14,6 @@ webserver_config.py
 
 # MlFlow
 mlruns/
+
+# VSCode
+.vscode/
