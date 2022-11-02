@@ -1,0 +1,1 @@
+kubectl create -f deploy/message-dumper/message-dumper.yml -n logging

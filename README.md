@@ -299,6 +299,18 @@ Don't forget to first replace the `<artifact_uri>` values in `deploy/model/deplo
 ./perform-prediction-sequence.sh
 ```
 
+### Logging inference
+In order to do inference logging, a message dumper to which inference logs from the models are forwarded, can be deployed using the command below. Currently however, this message dumper still has an issue that it keeps shutting down after a few minutes so it can only be used for development purposes.
+
+```shell
+./deploy-message-dumper.sh
+```
+
+Inference logs can be inspected using the following command:
+```shell
+kubectl logs pod/<pod-id> -n logging user-container
+```
+
 ### Running tests
 
 In the `src/tests` folder you'll find a couple of unit-tests for various parts
