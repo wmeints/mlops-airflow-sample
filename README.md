@@ -295,11 +295,20 @@ After the model has been succesfully deployed, the model can be tested with test
 ```
 
 ### Traffic mirroring
-In order to test a new version of a model, one could want to apply [traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/). In this way, a new model can be tested without impacting the original prediction endpoint. With KServe, this kind of functionality can be implemented using an [InferenceGraph](https://github.com/kserve/kserve/tree/master/docs/samples/graph). A sample in which two versions of a model are deployed in such a way can be executed with the following script:
+In order to test a new version of a model, one could want to apply [traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/). In this way, a new model can be tested without impacting the original prediction endpoint. With KServe, this kind of functionality can be implemented using an [InferenceGraph](https://github.com/kserve/kserve/tree/master/docs/samples/graph).
+
+#### Deployment using Airflow
+An example of traffic mirroring can be deployed using Airflow by executing the deploy_traffic_mirroring DAG. Do not forget to replace the values for `<artifact_url>` value in `src/pipelines/deploy_traffic_mirroring_dag.py` with URL to the models that need to be deployed.
+
+#### Manual deployment
+A sample in which two versions of a model are deployed in such a way can be executed with the following script:
 ```shell
 ./deploy-sequence.sh
 ```
-Don't forget to first replace the `<artifact_uri>` values in `deploy/model/deploy-sequence.yml` with URIs to model artifacts. After all resources have been deployed, a test with the InferenceGraph can be run using the following script:
+Don't forget to first replace the `<artifact_url>` values in `deploy/model/deploy-sequence.yml` with URIs to model artifacts.
+
+#### Testing deployed traffic mirroring sequence
+After all resources have been deployed, i.e. the first model, the second model and the inference graph, a test with the InferenceGraph can be run using the following script:
 
 ```shell
 ./perform-prediction-sequence.sh
