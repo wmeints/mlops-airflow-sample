@@ -9,10 +9,10 @@ from tasks.deploy_single_model import deploy_single_model
     catchup=False,
     tags=['wachttijden']
 )
-def deploy_model():
+def deploy_model(artifact_url: str, model_name: str):
     deploy_single_model({
-        'artifact_url': '<artifact-url>',
-        'model_name': 'mlflow-wachttijden-tree'
+        'artifact_url': artifact_url,
+        'model_name': model_name
     })
 
 
