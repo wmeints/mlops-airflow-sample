@@ -19,23 +19,16 @@ def deploy(input_data):
     from kserve import V1beta1ModelSpec
     from kserve import V1beta1ModelFormat
 
-    namespace = 'knative-serving'
-
-    modelspec = V1beta1ModelSpec(
-        storage_uri=input_data['artifact_url'],
-        model_format=V1beta1ModelFormat(name='mlflow'))
-
-    api_version = constants.KSERVE_V1BETA1
-
-    isvc = V1beta1InferenceService(api_version=api_version,
-                                kind=constants.KSERVE_KIND,
-                                metadata=client.V1ObjectMeta(
-                                    name='mlflow-wachttijden-tree', namespace=namespace),
-                                spec=V1beta1InferenceServiceSpec(
-                                    predictor=V1beta1PredictorSpec(
-                                        model=modelspec))
-                                )
+    isvc = V1beta1InferenceService(api_version=constants.KSERVE_V1BETA1,
+                                   kind=constants.KSERVE_KIND,
+                                   metadata=client.V1ObjectMeta(
+                                       name='mlflow-wachttijden-tree', namespace='knative-serving'),
+                                   spec=V1beta1InferenceServiceSpec(
+                                       predictor=V1beta1PredictorSpec(
+                                           model=V1beta1ModelSpec(
+                                               storage_uri=input_data['artifact_url'],
+                                               model_format=V1beta1ModelFormat(name='mlflow'))))
+                                   )
 
     KServe = KServeClient()
     KServe.create(isvc)
-
