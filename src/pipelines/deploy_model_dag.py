@@ -11,7 +11,8 @@ from tasks.deploy_single_model import deploy_single_model
 )
 def deploy_model():
     deploy_single_model({
-        'artifact_url': '<artifact-url>'
+        'artifact_url': '<artifact-url>',
+        'model_name': 'mlflow-wachttijden-tree'
     })
 
 

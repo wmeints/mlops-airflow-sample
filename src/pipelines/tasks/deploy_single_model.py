@@ -22,7 +22,7 @@ def deploy_single_model(input_data):
     isvc = V1beta1InferenceService(api_version=constants.KSERVE_V1BETA1,
                                    kind=constants.KSERVE_KIND,
                                    metadata=client.V1ObjectMeta(
-                                       name='mlflow-wachttijden-tree', namespace='knative-serving'),
+                                       name=input_data['model_name'], namespace='knative-serving'),
                                    spec=V1beta1InferenceServiceSpec(
                                        predictor=V1beta1PredictorSpec(
                                            model=V1beta1ModelSpec(
@@ -32,3 +32,4 @@ def deploy_single_model(input_data):
 
     KServe = KServeClient()
     KServe.create(isvc)
+    KServe.wait_isvc_ready(input_data['model_name'], namespace='knative-serving')
