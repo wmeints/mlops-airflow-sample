@@ -10,18 +10,20 @@ from tasks.deploy_sequence_graph import deploy_sequence_graph
     catchup=False,
     tags=['wachttijden']
 )
-def deploy_traffic_mirroring():
-    model1_name = 'mlflow-wachttijden-tree'
-    model2_name = 'mlflow-wachttijden-tree-v2'
-    sequence_graph_name = 'sequence-model'
+def deploy_traffic_mirroring(
+        artifact_url_model1: str = '<artifact-url>',
+        model1_name: str = 'mlflow-wachttijden-tree',
+        artifact_url_model2: str = '<artifact-url>',
+        model2_name: str = 'mlflow-wachttijden-tree-v2',
+        sequence_graph_name: str = 'sequence-model'):
 
     deploy_first_model = deploy_single_model({
-        'artifact_url': '<artifact-url>',
+        'artifact_url': artifact_url_model1,
         'model_name': model1_name
     })
 
     deploy_second_model = deploy_single_model({
-        'artifact_url': '<artifact-url>',
+        'artifact_url': artifact_url_model2,
         'model_name': model2_name
     })
 
