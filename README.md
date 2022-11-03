@@ -279,15 +279,21 @@ You can now start the pipelines from the user interface.
 ### Training and deploying a model
 After having completed all previous tasks, a model can be trained by consecutively running the prepare_dataset and the train_model pipelines. Afterwards a trained model should reside in `modelartifacts` container in the linked storage account.
 
+#### Deployment using Airflow
+A trained model can be deployed using Airflow by including the artifact-uri in the `src/pipelines/deploy-model-dag.py` file. Make sure to either make blobs in the model artifacts container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, the serviceAccountName should be added to V1beta1PredictorSpec in `src/pipelines/tasks/deploy.py` and please mind that this has not been tested during development of the current repo. After the changes have been comitted to the repo, they can be picked up by Airflow and the pipeline can be run in Airflow.
+
+#### Manual deployment
 In order to deploy the model using KServe, the URL to the `model/` folder in the storage account should be included in the `deploy/model/deploy-model.yml` file. Make sure to either make blobs in the container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, don't forget to include the serviceAccountName in `deploy/model/deploy-model.yml`. The model can then be deployed using the following command:
 ```shell
 ./deploy-model.sh
 ```
 
+### Testing a deployed model
 After the model has been succesfully deployed, the model can be tested with testdata that has been included in the project in the `src/tests/data/testdata.json` file. In order to do so, the following command should be run:
 ```shell
 ./perform-prediction.sh
 ```
+
 ### Traffic mirroring
 In order to test a new version of a model, one could want to apply [traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/). In this way, a new model can be tested without impacting the original prediction endpoint. With KServe, this kind of functionality can be implemented using an [InferenceGraph](https://github.com/kserve/kserve/tree/master/docs/samples/graph). A sample in which two versions of a model are deployed in such a way can be executed with the following script:
 ```shell
