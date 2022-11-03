@@ -11,7 +11,7 @@ from tasks.deploy import deploy
 )
 def deploy_model():
     deploy({
-        'artifact_url': '<artifact-uri>'
+        'artifact_url': '<artifact-url>'
     })
 
 
