@@ -1,6 +1,6 @@
 from airflow.decorators import dag
 import pendulum
-from tasks.deploy_model import deploy_model
+from tasks.deploy_single_model import deploy_single_model
 
 
 @dag(
@@ -10,7 +10,7 @@ from tasks.deploy_model import deploy_model
     tags=['wachttijden']
 )
 def deploy_model():
-    deploy_model({
+    deploy_single_model({
         'artifact_url': '<artifact-url>'
     })
 

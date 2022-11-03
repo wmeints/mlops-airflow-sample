@@ -9,7 +9,7 @@ from airflow.decorators import task
         'kserve==0.9.0'
     ]
 )
-def deploy_model(input_data):
+def deploy_single_model(input_data):
     from kubernetes import client
     from kserve import KServeClient
     from kserve import constants
