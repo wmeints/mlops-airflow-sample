@@ -1,6 +1,6 @@
 from airflow.decorators import dag
 import pendulum
-from pipelines.tasks.deploy_model import deploy_model
+from tasks.deploy_model import deploy_model
 
 
 @dag(
