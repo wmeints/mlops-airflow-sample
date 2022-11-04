@@ -5,6 +5,9 @@ metadata:
   name: "mlflow-wachttijden-tree"
 spec:
   predictor:
+    logger:
+      mode: all
+      url: http://message-dumper.logging/
     model:
       modelFormat:
         name: mlflow
@@ -17,6 +20,9 @@ metadata:
   name: "mlflow-wachttijden-tree-v2"
 spec:
   predictor:
+    logger:
+      mode: all
+      url: http://message-dumper.logging/
     model:
       modelFormat:
         name: mlflow
