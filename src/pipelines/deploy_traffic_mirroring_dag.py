@@ -3,6 +3,9 @@ import pendulum
 from tasks.deploy_single_model import deploy_single_model
 from tasks.deploy_sequence_graph import deploy_sequence_graph
 from airflow.models import Variable
+from utils.utils import check_default_artifact_url
+
+default_artifact_url = '<artifact-url>'
 
 
 @dag(
@@ -12,11 +15,16 @@ from airflow.models import Variable
     tags=['wachttijden']
 )
 def deploy_traffic_mirroring(
-        traffic_mirroring_model1_artifact_url: str = Variable.get('traffic_mirroring_model1_artifact_url', '<artifact-url>'),
+        traffic_mirroring_model1_artifact_url: str = Variable.get('traffic_mirroring_model1_artifact_url', default_var=default_artifact_url),
         traffic_mirroring_model1_model_name: str = Variable.get('traffic_mirroring_model1_model_name', 'mlflow-wachttijden-tree'),
-        traffic_mirroring_model2_artifact_url: str = Variable.get('traffic_mirroring_model2_artifact_url', '<artifact-url>'),
+        traffic_mirroring_model2_artifact_url: str = Variable.get('traffic_mirroring_model2_artifact_url', default_var=default_artifact_url),
         traffic_mirroring_model2_model_name: str = Variable.get('traffic_mirroring_model2_model_name', 'mlflow-wachttijden-tree-v2'),
         traffic_mirroring_sequence_graph_name: str = Variable.get('traffic_mirroring_sequence_graph_name', 'sequence-model')):
+
+    check_default_artifact_url(
+        default_artifact_url, traffic_mirroring_model1_artifact_url)
+    check_default_artifact_url(
+        default_artifact_url, traffic_mirroring_model2_artifact_url)
 
     deploy_first_model = deploy_single_model({
         'artifact_url': traffic_mirroring_model1_artifact_url,
