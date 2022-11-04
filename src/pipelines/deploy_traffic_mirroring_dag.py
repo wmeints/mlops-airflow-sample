@@ -2,6 +2,7 @@ from airflow.decorators import dag
 import pendulum
 from tasks.deploy_single_model import deploy_single_model
 from tasks.deploy_sequence_graph import deploy_sequence_graph
+from utils.utils import try_get_variable
 
 
 @dag(
@@ -11,11 +12,11 @@ from tasks.deploy_sequence_graph import deploy_sequence_graph
     tags=['wachttijden']
 )
 def deploy_traffic_mirroring(
-        artifact_url_model1: str = '<artifact-url>',
-        model1_name: str = 'mlflow-wachttijden-tree',
-        artifact_url_model2: str = '<artifact-url>',
-        model2_name: str = 'mlflow-wachttijden-tree-v2',
-        sequence_graph_name: str = 'sequence-model'):
+        artifact_url_model1: str = try_get_variable('traffic_mirroring_model1_artifact_url') or '<artifact-url>',
+        model1_name: str = try_get_variable('traffic_mirroring_model1_model_name') or 'mlflow-wachttijden-tree',
+        artifact_url_model2: str = try_get_variable('traffic_mirroring_model2_artifact_url') or '<artifact-url>',
+        model2_name: str = try_get_variable('traffic_mirroring_model2_model_name') or 'mlflow-wachttijden-tree-v2',
+        sequence_graph_name: str = try_get_variable('traffic_mirroring_sequence_graph_name') or 'sequence-model'):
 
     deploy_first_model = deploy_single_model({
         'artifact_url': artifact_url_model1,
