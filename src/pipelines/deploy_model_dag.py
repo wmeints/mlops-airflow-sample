@@ -11,11 +11,11 @@ from utils.utils import try_get_variable
     tags=['wachttijden']
 )
 def deploy_model(
-        artifact_url: str = try_get_variable('single_model_artifact_url') or '<artifact-url>',
-        model_name: str = try_get_variable('single_model_model_name') or 'mlflow-wachttijden-tree'):
+        deploy_model_artifact_url: str = try_get_variable('deploy_model_artifact_url') or '<artifact-url>',
+        deploy_model_model_name: str = try_get_variable('deploy_model_model_name') or 'mlflow-wachttijden-tree'):
     deploy_single_model({
-        'artifact_url': artifact_url,
-        'model_name': model_name
+        'artifact_url': deploy_model_artifact_url,
+        'model_name': deploy_model_model_name
     })
 
 

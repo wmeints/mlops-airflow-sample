@@ -12,26 +12,26 @@ from utils.utils import try_get_variable
     tags=['wachttijden']
 )
 def deploy_traffic_mirroring(
-        artifact_url_model1: str = try_get_variable('traffic_mirroring_model1_artifact_url') or '<artifact-url>',
-        model1_name: str = try_get_variable('traffic_mirroring_model1_model_name') or 'mlflow-wachttijden-tree',
-        artifact_url_model2: str = try_get_variable('traffic_mirroring_model2_artifact_url') or '<artifact-url>',
-        model2_name: str = try_get_variable('traffic_mirroring_model2_model_name') or 'mlflow-wachttijden-tree-v2',
-        sequence_graph_name: str = try_get_variable('traffic_mirroring_sequence_graph_name') or 'sequence-model'):
+        traffic_mirroring_model1_artifact_url: str = try_get_variable('traffic_mirroring_model1_artifact_url') or '<artifact-url>',
+        traffic_mirroring_model1_model_name: str = try_get_variable('traffic_mirroring_model1_model_name') or 'mlflow-wachttijden-tree',
+        traffic_mirroring_model2_artifact_url: str = try_get_variable('traffic_mirroring_model2_artifact_url') or '<artifact-url>',
+        traffic_mirroring_model2_model_name: str = try_get_variable('traffic_mirroring_model2_model_name') or 'mlflow-wachttijden-tree-v2',
+        traffic_mirroring_sequence_graph_name: str = try_get_variable('traffic_mirroring_sequence_graph_name') or 'sequence-model'):
 
     deploy_first_model = deploy_single_model({
-        'artifact_url': artifact_url_model1,
-        'model_name': model1_name
+        'artifact_url': traffic_mirroring_model1_artifact_url,
+        'model_name': traffic_mirroring_model1_model_name
     })
 
     deploy_second_model = deploy_single_model({
-        'artifact_url': artifact_url_model2,
-        'model_name': model2_name
+        'artifact_url': traffic_mirroring_model2_artifact_url,
+        'model_name': traffic_mirroring_model2_model_name
     })
 
     deploy_ig = deploy_sequence_graph({
-        'model1_name': model1_name,
-        'model2_name': model2_name,
-        'sequence_graph_name': sequence_graph_name
+        'model1_name': traffic_mirroring_model1_model_name,
+        'model2_name': traffic_mirroring_model2_model_name,
+        'sequence_graph_name': traffic_mirroring_sequence_graph_name
     })
 
     [deploy_first_model, deploy_second_model] >> deploy_ig
