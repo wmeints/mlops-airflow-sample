@@ -1,6 +1,7 @@
 from airflow.decorators import dag
 import pendulum
 from tasks.deploy_single_model import deploy_single_model
+from airflow.models import Variable
 
 
 @dag(
@@ -9,7 +10,7 @@ from tasks.deploy_single_model import deploy_single_model
     catchup=False,
     tags=['wachttijden']
 )
-def deploy_model(artifact_url: str = '<artifact-url>', model_name: str = 'mlflow-wachttijden-tree'):
+def deploy_model(artifact_url: str = Variable.get('artifact_url') or '<artifact-url>', model_name: str = 'mlflow-wachttijden-tree'):
     deploy_single_model({
         'artifact_url': artifact_url,
         'model_name': model_name
