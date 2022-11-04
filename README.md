@@ -280,7 +280,7 @@ You can now start the pipelines from the user interface.
 After having completed all previous tasks, a model can be trained by consecutively running the prepare_dataset and the train_model pipelines. Afterwards a trained model should reside in `modelartifacts` container in the linked storage account.
 
 #### Deployment using Airflow
-A trained model can be deployed using Airflow by including the artifact-uri in the `src/pipelines/deploy-model-dag.py` file. Make sure to either make blobs in the model artifacts container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, the serviceAccountName should be added to V1beta1PredictorSpec in `src/pipelines/tasks/deploy.py` and please mind that this has not been tested during development of the current repo. After the changes have been comitted to the repo, they can be picked up by Airflow and the pipeline can be run in Airflow.
+A trained model can be deployed using Airflow by running the deploy_model DAG. A URL to the artifacts of the model should be provided by either modifying the config by running via `Trigger DAG w\ config` or by setting a `deploy_model_artifact_url` Variable in Airflow. Make sure to either make blobs in the model artifacts container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, the serviceAccountName should be added to V1beta1PredictorSpec in `src/pipelines/tasks/deploy.py` and please mind that this has not been tested during development of the current repo.
 
 #### Manual deployment
 In order to deploy the model using KServe, the URL to the `model/` folder in the storage account should be included in the `deploy/model/deploy-model.yml` file. Make sure to either make blobs in the container publicly availabe or set up KServe authentication with a service principal with the [following guide](https://kserve.github.io/website/0.9/modelserving/storage/azure/azure/#using-private-blobs). If the latter option is chosen, don't forget to include the serviceAccountName in `deploy/model/deploy-model.yml`. The model can then be deployed using the following command:
@@ -298,7 +298,7 @@ After the model has been succesfully deployed, the model can be tested with test
 In order to test a new version of a model, one could want to apply [traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/). In this way, a new model can be tested without impacting the original prediction endpoint. With KServe, this kind of functionality can be implemented using an [InferenceGraph](https://github.com/kserve/kserve/tree/master/docs/samples/graph).
 
 #### Deployment using Airflow
-An example of traffic mirroring can be deployed using Airflow by executing the deploy_traffic_mirroring DAG. Do not forget to replace the values for `<artifact_url>` value in `src/pipelines/deploy_traffic_mirroring_dag.py` with URL to the models that need to be deployed.
+An example of traffic mirroring can be deployed using Airflow by running the deploy_traffic_mirroring DAG. URLs to the artifacts folder should be included in either the config by running via `Trigger DAG w\ config` or by setting the correct Airflow Variables. The minimum required variables are the following: `traffic_mirroring_model1_artifact_url` and `traffic_mirroring_model2_artifact_url`. 
 
 #### Manual deployment
 A sample in which two versions of a model are deployed in such a way can be executed with the following script:
@@ -335,7 +335,7 @@ Also don't forget to initialize a connection when debugging locally. This can
 be done using the 
 [following guide](https://fizzylogic.nl/2022/09/10/how-to-debug-airflow-dags-in-vscode#:~:text=You%20can%20store%20connections%20in,json%20connections/dev/all.json). Last, the environment variable
 `AZURE_STORAGE_CONNECTION_STRING` should be set to a connection string that
-has access to your Azure Blob Storage.
+has access to your Azure Blob Storage and when running either the deploy_model or the deploy_traffic_mirroring DAGs, values for the artifact URLs should be set in `variables/dev/all.json`. 
 
 ## Documentation
 
